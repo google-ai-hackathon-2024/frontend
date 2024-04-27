@@ -90,7 +90,7 @@ const MenuCard = () => {
                 }
             }}
         >
-            <Box sx={{ p: 2 }}>
+            {/* <Box sx={{ p: 2 }}>
                 <List disablePadding sx={{ m: 0 }}>
                     <ListItem alignItems="flex-start" disableGutters disablePadding>
                         <ListItemAvatar sx={{ mt: 0 }}>
@@ -123,7 +123,7 @@ const MenuCard = () => {
                     </ListItem>
                 </List>
                 <LinearProgressWithLabel value={80} />
-            </Box>
+            </Box> */}
         </Card>
     );
 };
