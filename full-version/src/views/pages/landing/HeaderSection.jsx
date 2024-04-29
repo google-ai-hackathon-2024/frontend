@@ -164,7 +164,7 @@ const HeaderSection = () => {
                                 animate={{ opacity: 1, scale: 1 }}
                                 transition={{ type: 'spring', stiffness: 150, damping: 30, delay: 0.2 }}
                             >
-                                <HeaderAnimationImage src={widget1} alt="Berry" />
+                                {/* <HeaderAnimationImage src={widget1} alt="Berry" /> */}
                             </motion.div>
                         </Box>
                         <Box
@@ -182,7 +182,7 @@ const HeaderSection = () => {
                                 animate={{ opacity: 1, scale: 1 }}
                                 transition={{ type: 'spring', stiffness: 150, damping: 30, delay: 0.4 }}
                             >
-                                <HeaderAnimationImage src={widget2} alt="Berry" />
+                                {/* <HeaderAnimationImage src={widget2} alt="Berry" /> */}
                             </motion.div>
                         </Box>
                     </Box>

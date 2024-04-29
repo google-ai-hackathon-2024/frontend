@@ -55,11 +55,11 @@ const Palette = (mode, presetColor) => {
                 800: mode === ThemeMode.DARK ? colors.darkPrimary800 : colors.primary800
             },
             secondary: {
-                light: mode === ThemeMode.DARK ? colors.darkSecondaryLight : colors.secondaryLight,
-                main: mode === ThemeMode.DARK ? colors.darkSecondaryMain : colors.secondaryMain,
-                dark: mode === ThemeMode.DARK ? colors.darkSecondaryDark : colors.secondaryDark,
-                200: mode === ThemeMode.DARK ? colors.darkSecondary200 : colors.secondary200,
-                800: mode === ThemeMode.DARK ? colors.darkSecondary800 : colors.secondary800
+                light: mode === ThemeMode.DARK ? colors.darkPrimaryLight : colors.primaryLight,
+                main: mode === ThemeMode.DARK ? colors.darkPrimaryMain : colors.primaryMain,
+                dark: mode === ThemeMode.DARK ? colors.darkPrimaryDark : colors.primaryDark,
+                200: mode === ThemeMode.DARK ? colors.darkPrimary200 : colors.primary200,
+                800: mode === ThemeMode.DARK ? colors.darkPrimary800 : colors.primary800
             },
             error: {
                 light: colors.errorLight,
@@ -85,7 +85,7 @@ const Palette = (mode, presetColor) => {
             grey: {
                 50: colors.grey50,
                 100: colors.grey100,
-                500: mode === ThemeMode.DARK ? colors.darkTextSecondary : colors.grey500,
+                500: mode === ThemeMode.DARK ? colors.darkTextPrimary : colors.grey500,
                 600: mode === ThemeMode.DARK ? colors.darkTextTitle : colors.grey600,
                 700: mode === ThemeMode.DARK ? colors.darkTextPrimary : colors.grey700,
                 900: mode === ThemeMode.DARK ? colors.darkTextPrimary : colors.grey900
@@ -99,7 +99,7 @@ const Palette = (mode, presetColor) => {
             },
             text: {
                 primary: mode === ThemeMode.DARK ? colors.darkTextPrimary : colors.grey700,
-                secondary: mode === ThemeMode.DARK ? colors.darkTextSecondary : colors.grey500,
+                secondary: mode === ThemeMode.DARK ? colors.darkTextPrimary : colors.grey500,
                 dark: mode === ThemeMode.DARK ? colors.darkTextPrimary : colors.grey900,
                 hint: colors.grey100
             },

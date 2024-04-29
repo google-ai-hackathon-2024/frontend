@@ -6,14 +6,6 @@ import Box from '@mui/material/Box';
 import Customization from 'layout/Customization';
 import AppBar from 'ui-component/extended/AppBar';
 import HeaderSection from './HeaderSection';
-import CardSection from './CardSection';
-import FeatureSection from './FeatureSection';
-import PeopleSection from './PeopleSection';
-import FrameworkSection from './FrameworkSection';
-import FooterSection from './FooterSection';
-import CustomizeSection from './CustomizeSection';
-import PreBuildDashBoard from './PreBuildDashBoard';
-import StartupProjectSection from './StartupProjectSection';
 import { ThemeMode } from 'config';
 //import IncludeSection from './IncludeSection';
 //import RtlInfoSection from './RtlInfoSection';
@@ -91,7 +83,7 @@ const Landing = () => {
             {/* <Box sx={{ py: 12.5, bgcolor: theme.palette.mode === ThemeMode.DARK ? 'background.default' : 'dark.900', pb: 0 }}>
                 <FooterSection />
             </Box> */}
-            <Customization />
+            {/* <Customization /> */}
         </>
     );
 };

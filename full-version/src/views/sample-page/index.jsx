@@ -39,7 +39,13 @@ class SamplePage extends React.Component {
                 conversationTitle: "",
                 speakerNames: [] // Changed to an array to store speaker names
             },
-            
+            chatData: {
+                user: "Sample User",
+                messages: [
+                    { text: "Hello, how are you?" },
+                    { text: "I'm fine, thanks for asking!" }
+                ]
+            },
             loading: false  // Initialize the loading state as false
             
         };
@@ -317,7 +323,11 @@ class SamplePage extends React.Component {
                         accept="audio/*"
                     />
                     {showChat && <ChatDisplay
+                        user={this.state.chatData.user}
+                        messages={this.state.chatData.messages}
                         convID={this.state.audioDetails.convID}
+                        transcriptURL={this.state.transcriptURL}
+                        summaryURL={this.state.summaryURL}
                     />}
                     {!showRecorder && !showChat && (
                         <SampleForm

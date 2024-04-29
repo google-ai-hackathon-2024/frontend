@@ -171,6 +171,8 @@ const UtilsGrid = Loadable(lazy(() => import('views/utilities/Grid')));
 
 // sample page routing
 const SamplePage = Loadable(lazy(() => import('views/sample-page')));
+const ChatView = Loadable(lazy(() => import('views/chat-view')));
+
 
 // ==============================|| MAIN ROUTING ||============================== //
 
@@ -182,6 +184,10 @@ const MainRoutes = {
         </AuthGuard>
     ),
     children: [
+        {
+            path: '/chat/:convID',
+            element: <ChatView />
+        },
         {
             path: '/widget/statistics',
             element: <WidgetStatistics />

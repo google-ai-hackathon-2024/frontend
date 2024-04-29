@@ -7,7 +7,7 @@ import SendTwoToneIcon from '@mui/icons-material/SendTwoTone';
 import ReactMarkdown from 'react-markdown';
 import FileDownloadIcon from '@mui/icons-material/FileDownload';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy'; // Renamed for clarity
-import { useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';  // Add this line
 
 import { drawerWidth } from 'store/constant';
 import { gridSpacing } from 'store/constant';
@@ -48,20 +48,15 @@ const ChatContainer = styled(Box)(({ theme }) => ({
     overflowY: 'auto'
 }));
 
-const ChatDisplay = ({ convID: propConvID }) => {
-    const { convID: urlConvID } = useParams(); // Extract `convID` from URL
+const ChatDisplay = () => {
+    const { convID } = useParams(); // Get convID from the URL parameter
 
-    // Determine which `convID` to use
-    const convID = propConvID || urlConvID;
-    
     const theme = useTheme();
     const dispatch = useDispatch();
     const [message, setMessage] = useState('');
     const chatState = useSelector(state => state.chat);
     const [data, setData] = useState([]);
     const messagesEndRef = useRef(null);
-    const [copied, setCopied] = useState(false);
-
 
     const scrollToBottom = () => {
       messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -145,14 +140,11 @@ const ChatDisplay = ({ convID: propConvID }) => {
         }
     };
 
-    const handleShareChat = async () => {
-        const urlToCopy = `${window.location.origin}/chat/${convID}`;
+    const handleCopy = async (url) => {
         if (navigator.clipboard) {
             try {
-                await navigator.clipboard.writeText(urlToCopy);
-                setCopied(true);
-                setTimeout(() => setCopied(false), 2000); // Reset copied state after 2 seconds
-                // alert('URL copied to clipboard: ' + urlToCopy);
+                await navigator.clipboard.writeText(url);
+                console.log('URL copied to clipboard');
             } catch (error) {
                 console.error('Failed to copy:', error);
             }
@@ -173,18 +165,20 @@ const ChatDisplay = ({ convID: propConvID }) => {
                                     <IconButton color="inherit" onClick={() => handleDownload(`http://localhost:5555/summary?convID=${convID}`)}>
                                         <FileDownloadIcon />
                                     </IconButton>
-                                
+                                    <IconButton color="inherit" onClick={() => handleCopy(`http://localhost:5555/summary?convID=${convID}`)}>
+                                        <ContentCopyIcon />
+                                    </IconButton>
                                     
                                     <Button variant="outlined" onClick={loadTranscript}>Transcript</Button>
                                     <IconButton color="inherit" onClick={() => handleDownload(`http://localhost:5555/transcript?convID=${convID}`)}>
                                         <FileDownloadIcon />
                                     </IconButton>
-                                    
+                                    <IconButton color="inherit" onClick={() => handleCopy(`http://localhost:5555/transcript?convID=${convID}`)}>
+                                        <ContentCopyIcon />
+                                    </IconButton>
                                     <Box flexGrow={1} /> {/* This will push all items after it to the right */}
 
-                                    <Button variant="outlined" onClick={handleShareChat}>
-                                        {copied ? "Copied" : "Share Chat"}
-                                    </Button>
+                                    <Button variant="outlined" onClick={loadSummary}>Share Chat</Button>
                                 </Stack>
                                 <Divider />
                                 <ChatContainer>
