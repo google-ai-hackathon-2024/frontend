@@ -89,44 +89,23 @@ class SamplePage extends React.Component {
         this.toggleFormDialog();
     }
 
-    handleReset() {
-        const reset = {
-            file: null,
-          url: null,
-          blob: null,
-          chunks: null,
-          duration: {
-            h: 0,
-            m: 0,
-            s: 0
-          }
-        };
-        this.state.audioDetails = reset;
-      }
-
-    //     handleAudioUpload = async () => {
-    //     const { file } = this.state.audioDetails;
-    //     if (!file) {
-    //         console.error("No file selected for upload.");
-    //         return;
-    //     }
-
-    //     try {
-    //         const formData = new FormData();
-    //         formData.append('audio', file);
-    //         const uploadResponse = await uploadAudio(formData);
-    //         console.log('Upload successful:', uploadResponse);
-    //         this.setState(prevState => ({
-    //             audioDetails: {
-    //                 ...prevState.audioDetails,
-    //                 convID: uploadResponse.convID,
-    //                 url: uploadResponse.audioURL
-    //             }
-    //         }));
-    //     } catch (error) {
-    //         console.error('Error during audio upload:', error);
-    //     }
-    // }
+    handleReset = () => {
+        // Correct way to reset part of the state
+        this.setState(prevState => ({
+            audioDetails: {
+                ...prevState.audioDetails,
+                file: null,
+                url: null,
+                blob: null,
+                chunks: null,
+                duration: {
+                    h: 0,
+                    m: 0,
+                    s: 0
+                }
+            }
+        }));
+    }
 
 
     handleAudioStop = async (data) => {

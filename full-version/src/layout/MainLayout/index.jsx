@@ -11,10 +11,8 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 
 // project imports
 import Header from './Header';
-import Sidebar from './Sidebar';
 import HorizontalBar from './HorizontalBar';
 import MainContentStyled from './MainContentStyled';
-import Customization from '../Customization';
 import Loader from 'ui-component/Loader';
 import Breadcrumbs from 'ui-component/extended/Breadcrumbs';
 
@@ -43,7 +41,7 @@ const MainLayout = () => {
     const isHorizontal = menuOrientation === MenuOrientation.HORIZONTAL && !downMD;
 
     // horizontal menu-list bar : drawer
-    const menu = useMemo(() => (isHorizontal ? <HorizontalBar /> : <Sidebar />), [isHorizontal]);
+    const menu = 0;
 
     if (menuMasterLoading) return <Loader />;
 
@@ -57,7 +55,7 @@ const MainLayout = () => {
             </AppBar>
 
             {/* menu / drawer */}
-            {/* {menu} */}
+            {menu}
 
             {/* main content */}
             <MainContentStyled {...{ borderRadius, menuOrientation, open: drawerOpen, theme }}>
@@ -67,7 +65,6 @@ const MainLayout = () => {
                     <Outlet />
                 </Container>
             </MainContentStyled>
-            {/* <Customization />  */}
         </Box>
     );
 };

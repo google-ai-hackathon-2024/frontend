@@ -3,7 +3,6 @@ import { useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 
 // project imports
-import Customization from 'layout/Customization';
 import AppBar from 'ui-component/extended/AppBar';
 import HeaderSection from './HeaderSection';
 import { ThemeMode } from 'config';

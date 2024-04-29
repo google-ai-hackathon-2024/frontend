@@ -61,23 +61,23 @@ const linkList = [
         label: 'User Quick',
         children: [
             {
-                link: '/apps/user/social-profile/posts',
+                link: '#',
                 label: 'Social Profile'
             },
             {
-                link: '/apps/user/account-profile/profile1',
+                link: '#',
                 label: 'Account Profile'
             },
             {
-                link: '/apps/user/card/card1',
+                link: '#',
                 label: 'User Cards'
             },
             {
-                link: '/apps/user/list/list2',
+                link: '#',
                 label: 'User List'
             },
             {
-                link: '/apps/contact/c-card',
+                link: '#',
                 label: 'Contact'
             }
         ]
@@ -87,23 +87,23 @@ const linkList = [
         label: 'Applications',
         children: [
             {
-                link: '/apps/chat',
+                link: '#',
                 label: 'Chat'
             },
             {
-                link: '/apps/kanban/board',
+                link: '#',
                 label: 'Kanban'
             },
             {
-                link: '/apps/mail',
+                link: '#',
                 label: 'Mail'
             },
             {
-                link: '/apps/calendar',
+                link: '#',
                 label: 'Calendar'
             },
             {
-                link: '/apps/e-commerce/products',
+                link: '#',
                 label: 'E-commerce'
             }
         ]
@@ -113,15 +113,15 @@ const linkList = [
         label: 'Primitives',
         children: [
             {
-                link: '/utils/util-color',
+                link: '#',
                 label: 'Colors'
             },
             {
-                link: '/utils/util-typography',
+                link: '#',
                 label: 'Typography'
             },
             {
-                link: '/utils/util-shadow',
+                link: '#',
                 label: 'Shadows'
             },
             {
@@ -130,7 +130,7 @@ const linkList = [
                 target: '_blank'
             },
             {
-                link: '/basic/accordion',
+                link: '#',
                 label: 'Elements'
             }
         ]

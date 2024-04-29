@@ -218,13 +218,10 @@ const ComingSoon1 = () => {
                                 <Grid item xs={12}>
                                     <Grid container spacing={2}>
                                         <Grid item xs={12}>
-                                            <Typography variant="h1">Berry - The React Admin Template</Typography>
+                                            <Typography variant="h1">Coming soon</Typography>
                                         </Grid>
                                         <Grid item xs={12}>
-                                            <Typography sx={{ fontSize: '1.125rem' }}>
-                                                Presenting Material-UI based React Dashboard Template to build performance centric websites
-                                                and applications.
-                                            </Typography>
+                                            
                                         </Grid>
                                     </Grid>
                                 </Grid>
@@ -286,29 +283,8 @@ const ComingSoon1 = () => {
                                                 <Grid item xs={12}>
                                                     <Grid container justifyContent="flex-end" spacing={1}>
                                                         <Grid item>
-                                                            <ButtonBase
-                                                                component={Link}
-                                                                href="https://links.codedthemes.com/HTIBc"
-                                                                target="_blank"
-                                                                aria-label="blog"
-                                                            >
-                                                                <Avatar
-                                                                    sx={{
-                                                                        ...theme.typography.commonAvatar,
-                                                                        ...theme.typography.mediumAvatar,
-                                                                        bgcolor:
-                                                                            theme.palette.mode === ThemeMode.DARK
-                                                                                ? theme.palette.dark.main
-                                                                                : theme.palette.secondary.light,
-                                                                        color:
-                                                                            theme.palette.mode === ThemeMode.DARK
-                                                                                ? theme.palette.secondary.main
-                                                                                : theme.palette.secondary.dark
-                                                                    }}
-                                                                >
-                                                                    <BookIcon />
-                                                                </Avatar>
-                                                            </ButtonBase>
+                                                            
+                                                              
                                                         </Grid>
                                                         <Grid item>
                                                             <ButtonBase
