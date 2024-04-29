@@ -6,12 +6,14 @@ import SampleForm from "./SampleForm";
 import ChatDisplay from "./SampleChat";
 import FormDialog from "./FormDialog";  // Import the FormDialog component
 import {uploadAudio, setConfig, generateResult, initChatbot} from 'hooks/useApi';  // Path to the custom hook file
+import { CircularProgress } from '@mui/material'; // Importing CircularProgress for the loading icon
 
 class SamplePage extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             audioDetails: {
+                file: null,
                 url: null,
                 blob: null,
                 chunks: null,
@@ -37,95 +39,173 @@ class SamplePage extends React.Component {
                 conversationTitle: "",
                 speakerNames: [] // Changed to an array to store speaker names
             },
-            chatData: {
-                user: "Sample User",
-                messages: [
-                    { text: "Hello, how are you?" },
-                    { text: "I'm fine, thanks for asking!" }
-                ]
-            }
+            
+            loading: false  // Initialize the loading state as false
+            
         };
+        this.fileInputRef = React.createRef();
     }
-    
-    
-    
+
+    setLoading = (loading) => {
+        this.setState({ loading });
+    }
+
+
+    handleFileChange = (event) => {
+        const file = event.target.files[0];
+        if (file) {
+            this.uploadFile(file);
+        }
+    }
+
+    handleAudioUpload = () => {
+        this.fileInputRef.current.click(); // Programmatically click the hidden file input
+    }
+
+    uploadFile = async (file) => {
+        this.setLoading(true); // Start loading
+        try {
+            const formData = new FormData();
+            formData.append('audio', file);
+            const uploadResponse = await uploadAudio(formData);
+            console.log('Upload successful:', uploadResponse);
+            this.setState(prevState => ({
+                audioDetails: {
+                    ...prevState.audioDetails,
+                    convID: uploadResponse.convID, // Assuming your API returns an audioID
+                    // url: uploadResponse.audioURL // Assuming your API returns a new URL for the uploaded file
+                }
+            }));
+        } catch (error) {
+            console.error('Error during audio upload:', error);
+        }
+        this.setLoading(false); // End loading regardless of success or failure
+        this.toggleFormDialog();
+    }
+
+    handleReset() {
+        const reset = {
+            file: null,
+          url: null,
+          blob: null,
+          chunks: null,
+          duration: {
+            h: 0,
+            m: 0,
+            s: 0
+          }
+        };
+        this.state.audioDetails = reset;
+      }
+
+    //     handleAudioUpload = async () => {
+    //     const { file } = this.state.audioDetails;
+    //     if (!file) {
+    //         console.error("No file selected for upload.");
+    //         return;
+    //     }
+
+    //     try {
+    //         const formData = new FormData();
+    //         formData.append('audio', file);
+    //         const uploadResponse = await uploadAudio(formData);
+    //         console.log('Upload successful:', uploadResponse);
+    //         this.setState(prevState => ({
+    //             audioDetails: {
+    //                 ...prevState.audioDetails,
+    //                 convID: uploadResponse.convID,
+    //                 url: uploadResponse.audioURL
+    //             }
+    //         }));
+    //     } catch (error) {
+    //         console.error('Error during audio upload:', error);
+    //     }
+    // }
+
 
     handleAudioStop = async (data) => {
         console.log(data);
-        const audioUrl = URL.createObjectURL(data.blob);
-        const link = document.createElement('a');
-        link.href = audioUrl;
-        link.download = "recorded_audio.wav";
-        console.log(link)
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-        URL.revokeObjectURL(audioUrl);
-
+        this.setLoading(true); // End loading regardless of success or failure
+        // Update state with the new audio details
         this.setState({
             audioDetails: {
                 ...this.state.audioDetails,
-                url: audioUrl,
+                url: URL.createObjectURL(data.blob),
                 blob: data.blob,
                 chunks: data.chunks,
                 duration: data.duration
             }
         });
-
+    
         try {
-            const uploadResponse = await uploadAudio("/Users/em/Documents/backend/dataset/biz-meeting/biz-result-oup-brainstorming-meeting_16k.wav"); //set your download folder here
-            this.state.audioDetails.convID = uploadResponse.convID;
-            this.state.audioDetails.url = uploadResponse.audioURL;
-            console.log('Upload successful:', uploadResponse);
+            // Use FormData to prepare the file for uploading
+            const formData = new FormData();
+            formData.append('audio', data.blob); // Append the blob from state to FormData, and set filename
+            console.log(formData)
+            // Assume uploadAudio is a defined async function to handle API upload
+            const uploadResponse = await uploadAudio(formData); // Send FormData to the API
+            this.setState(prevState => ({
+                audioDetails: {
+                    ...prevState.audioDetails,
+                    convID: uploadResponse.convID, // Assuming your API returns an audioID
+                    // url: uploadResponse.audioURL // Assuming your API returns a new URL for the uploaded file
+                }
+            }), () => {
+                console.log('Upload successful:', uploadResponse);
+            });
         } catch (error) {
             console.error('Error during audio upload:', error);
+        } finally {
+            this.setLoading(false); // End loading regardless of success or failure
         }
-
         // Open the form dialog to enter participants
+        console.log(this.state.audioDetails.convID)
         this.toggleFormDialog();
     }
    
 
     sendParticipantInfo = (participants) => {
-        const { convID } = this.state.audioDetails;
-    
+        this.setLoading(true); // End loading regardless of success or failure    
+        const speakerCnt1 = parseInt(participants, 10); // Parse to integer as expected by the API
+        const conversationID = this.state.audioDetails.convID;
+        console.log("conversationID", conversationID)
         const dataToSend = {
-            convID,
-            speakerCnt: participants
+            convID: conversationID,
+            speakerCnt: speakerCnt1
         };
     
         // Using useApi.setConfig to send the participant info
         setConfig(dataToSend)
             .then(response => {
-                console.log("Configuration set successfully:", response);
+                console.log("Configuration set successfully:", response.audioURLs);
                 // Assuming the response contains convID and audioURLs
-                // this.setState(prevState => ({
-                //     audioDetails: {
-                //         ...prevState.audioDetails,
-                //         convID: response.convID,  // Update convID in case it's new or changed
-                //     },
-                //     audioSamples: response.audioURLs  // Update audio samples with new URLs
-                // }));
-                // this.setState({ showRecorder: false });  // Update UI state as necessary
+                this.setState(prevState => ({
+                    audioDetails: {
+                        ...prevState.audioDetails,
+                    },
+                    audioSamples: response.audioURLs  // Update audio samples with new URLs
+                }));
+                this.setState({ showRecorder: false });  // Update UI state as necessary
             })
             .catch(error => {
                 console.error("Error setting configuration:", error);
+            }).finally(() => {
+                this.setLoading(false); // End loading regardless of success or failure
             });
-    
         console.log("Participant count submitted:", participants);
-        this.state.showRecorder = false;
         // this.state.showRecorder = false;
         // this.state.showChat = true;
     }
 
     handleSubmit = async (e) => {
         e.preventDefault();
+        this.setLoading(true); // End loading regardless of success or failure
         const { conversationType, conversationTitle, speakerNames } = this.state.form;
         const convType = parseInt(conversationType, 10); // Parse to integer as expected by the API
     
         const dataToSend = {
-            // convID: this.state.audioDetails.convID,
-            convID: "AOPPY4",
+            convID: this.state.audioDetails.convID,
+            // convID: "AOPPY4",
             speakerName: speakerNames, // This should be the array of speaker names
             convType, // Integer representation of conversation type
             convTitle: conversationTitle // Conversation title
@@ -151,6 +231,8 @@ class SamplePage extends React.Component {
             });
         } catch (error) {
             console.error("Error submitting form data:", error);
+        }finally {
+            this.setLoading(false); // End loading regardless of success or failure
         }
     };
 
@@ -197,41 +279,60 @@ class SamplePage extends React.Component {
     }
 
     render() {
-        const { showRecorder, showChat, showFormDialog, audioDetails } = this.state;
+        const { showRecorder, showChat, showFormDialog, loading } = this.state;
+        const overlayStyle = {
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            right: 0,  // Ensure it stretches across the entire screen
+            bottom: 0, // Ensure it stretches across the entire screen
+            backgroundColor: 'rgba(0, 0, 0, 0.5)',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            zIndex: 1500  // Ensure it is above everything else
+        };
+
         return (
             <div className="App">
-                {showRecorder && (
-                    <Recorder
-                        record={true}
-                        title={"New recording"}
-                        audioURL={audioDetails.url}
-                        handleAudioStop={this.handleAudioStop}
-                        mimeTypeToUseWhenRecording={"audio/webm"}
-                        // showUIAudio
+                {loading && <div style={overlayStyle}><CircularProgress /></div>}
+                <div style={{ opacity: loading ? 0.3 : 1 }}> {/* Apply opacity to entire content when loading */}
+                    {showRecorder && (
+                        <Recorder
+                            record={true}
+                            title={"New recording"}
+                            audioURL={this.state.audioDetails.url}
+                            // showUIAudio
+                            handleAudioStop={this.handleAudioStop}
+                            handleAudioUpload={this.handleAudioUpload}
+                            handleReset={this.handleReset}
+                            mimeTypeToUseWhenRecording={`audio/webm`}
+                        />
+                    )}
+                    <input
+                        type="file"
+                        style={{ display: 'none' }}
+                        onChange={this.handleFileChange}
+                        ref={this.fileInputRef}
+                        accept="audio/*"
                     />
-                )}
-                {showChat && (
-                    <ChatDisplay
-                    user={this.state.chatData.user}
-                    messages={this.state.chatData.messages}
-                    convID={this.state.audioDetails.convID} // Pass convID as a prop to ChatDisplay
-                    transcriptURL={this.state.transcriptURL} // Pass transcript URL as a prop to ChatDisplay
-                    summaryURL={this.state.summaryURL} // Pass summary URL as a prop to ChatDisplay
-                />
-                )}
-                {!showRecorder && !showChat && (
-                    <SampleForm
-                        form={this.state.form}
-                        audioSamples={this.state.audioSamples}
-                        handleFormChange={this.handleFormChange}
-                        handleSubmit={this.handleSubmit}
+                    {showChat && <ChatDisplay
+                        convID={this.state.audioDetails.convID}
+                    />}
+                    {!showRecorder && !showChat && (
+                        <SampleForm
+                            form={this.state.form}
+                            audioSamples={this.state.audioSamples}
+                            handleFormChange={this.handleFormChange}
+                            handleSubmit={this.handleSubmit}
+                        />
+                    )}
+                    <FormDialog
+                        open={showFormDialog}
+                        onClose={this.toggleFormDialog}
+                        onSubmit={this.sendParticipantInfo}
                     />
-                )}
-                <FormDialog
-                    open={showFormDialog}
-                    onClose={this.toggleFormDialog}
-                    onSubmit={this.sendParticipantInfo}
-                />
+                </div>
             </div>
         );
     }

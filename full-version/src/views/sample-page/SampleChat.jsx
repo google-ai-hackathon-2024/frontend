@@ -5,6 +5,8 @@ import MainCard from 'ui-component/cards/MainCard';
 import { useSelector, useDispatch } from 'store';
 import SendTwoToneIcon from '@mui/icons-material/SendTwoTone';
 import ReactMarkdown from 'react-markdown';
+import FileDownloadIcon from '@mui/icons-material/FileDownload';
+import ContentCopyIcon from '@mui/icons-material/ContentCopy'; // Renamed for clarity
 
 import { drawerWidth } from 'store/constant';
 import { gridSpacing } from 'store/constant';
@@ -45,7 +47,9 @@ const ChatContainer = styled(Box)(({ theme }) => ({
     overflowY: 'auto'
 }));
 
-const ChatDisplay = ({ user, messages, convID, trascriptURL, summaryURL }) => {
+const ChatDisplay = ({convID}) => {
+    const { convID } = useParams(); // Get convID from the URL parameter
+
     const theme = useTheme();
     const dispatch = useDispatch();
     const [message, setMessage] = useState('');
@@ -67,35 +71,10 @@ const ChatDisplay = ({ user, messages, convID, trascriptURL, summaryURL }) => {
     }, [data]);
 
 
-    const handleDownload = (url) => {
-        const link = document.createElement('a');
-        link.href = url;
-        link.download = url.split('/').pop(); // This assumes the filename comes from the URL segment after the last '/'
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-    };
-
-    const handleShare = async (url) => {
-        if (navigator.share) {
-            try {
-                await navigator.share({
-                    title: 'Check this out',
-                    url: url
-                });
-                console.log('Content shared successfully');
-            } catch (error) {
-                console.error('Error sharing the content', error);
-            }
-        } else {
-            console.error('Web Share API is not supported in this browser.');
-        }
-    };
-
     const loadSummary = async () => {
         try {
-            const convID = "AOPPY4";
-            const url = `http://localhost:5555/summary?convID=${convID}`;
+            const convID1 = convID;
+            const url = `http://localhost:5555/summary?convID=${convID1}`;
             const response = await fetch(url);
             const summaryText = await response.text();  // Retrieve Markdown text from the .txt file
             setData(prevData => [...prevData, { text: summaryText, sender: 'server', markdown: true }]);
@@ -106,8 +85,8 @@ const ChatDisplay = ({ user, messages, convID, trascriptURL, summaryURL }) => {
     
     const loadTranscript = async () => {
         try {
-            const convID = "AOPPY4";
-            const url = `http://localhost:5555/transcript?convID=${convID}`;
+            const convID1 = convID;
+            const url = `http://localhost:5555/transcript?convID=${convID1}`;
             const response = await fetch(url);
             const transcriptText = await response.text();  // Retrieve Markdown text from the .txt file
             setData(prevData => [...prevData, { text: transcriptText, sender: 'server', markdown: true }]);
@@ -122,18 +101,54 @@ const ChatDisplay = ({ user, messages, convID, trascriptURL, summaryURL }) => {
     
         // Assuming the convID is stored in state or comes from a prop, we'll use a dummy ID for now.
         // Replace 'dummy-conv-id' with the actual convID from your state or props.
-        const convID = "AOPPY4";
+        const convID1 = convID;
     
         setData(prevData => [...prevData, { text: message, sender: 'user'}]);
         setMessage('');
     
         try {
-            const response = await getChatbotAnswer(convID, message);
+            const response = await getChatbotAnswer(convID1, message);
             // Assuming the API response has the chatbot's message under the key 'answer'
             console.log('Received response:', response);
             setData(prevData => [...prevData, { text: response, sender: 'server' }]);
         } catch (error) {
             console.error('Failed to send message:', error);
+        }
+    };
+    const handleDownload = async (url) => {
+        try {
+            const response = await fetch(url);
+            if (!response.ok) {
+                throw new Error('Failed to fetch file.');
+            }
+            const data = await response.text();
+            const blob = new Blob([data], { type: 'text/plain' });
+    
+            const downloadUrl = window.URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.href = downloadUrl;
+            link.download = 'conversation-summary.txt'; // You can customize the download file name
+            document.body.appendChild(link);
+            link.click();
+    
+            // Clean up by revoking the Blob URL and removing the link
+            window.URL.revokeObjectURL(downloadUrl);
+            document.body.removeChild(link);
+        } catch (error) {
+            console.error('Failed to download file:', error);
+        }
+    };
+
+    const handleCopy = async (url) => {
+        if (navigator.clipboard) {
+            try {
+                await navigator.clipboard.writeText(url);
+                console.log('URL copied to clipboard');
+            } catch (error) {
+                console.error('Failed to copy:', error);
+            }
+        } else {
+            console.error('Clipboard API not supported');
         }
     };
 
@@ -144,9 +159,25 @@ const ChatDisplay = ({ user, messages, convID, trascriptURL, summaryURL }) => {
                     <Grid item xs={12}>
                         <MainCard>
                             <Stack spacing={2}>
-                                <Stack direction="row" spacing={1}>
+                                <Stack direction="row" spacing={1} alignItems="center">
                                     <Button variant="outlined" onClick={loadSummary}>Summarize</Button>
+                                    <IconButton color="inherit" onClick={() => handleDownload(`http://localhost:5555/summary?convID=${convID}`)}>
+                                        <FileDownloadIcon />
+                                    </IconButton>
+                                    <IconButton color="inherit" onClick={() => handleCopy(`http://localhost:5555/summary?convID=${convID}`)}>
+                                        <ContentCopyIcon />
+                                    </IconButton>
+                                    
                                     <Button variant="outlined" onClick={loadTranscript}>Transcript</Button>
+                                    <IconButton color="inherit" onClick={() => handleDownload(`http://localhost:5555/transcript?convID=${convID}`)}>
+                                        <FileDownloadIcon />
+                                    </IconButton>
+                                    <IconButton color="inherit" onClick={() => handleCopy(`http://localhost:5555/transcript?convID=${convID}`)}>
+                                        <ContentCopyIcon />
+                                    </IconButton>
+                                    <Box flexGrow={1} /> {/* This will push all items after it to the right */}
+
+                                    <Button variant="outlined" onClick={loadSummary}>Share Chat</Button>
                                 </Stack>
                                 <Divider />
                                 <ChatContainer>
@@ -174,7 +205,7 @@ const ChatDisplay = ({ user, messages, convID, trascriptURL, summaryURL }) => {
                                 </Stack>
                             </Stack>
                         </MainCard>
-                        </Grid>
+                    </Grid>
                 </Grid>
             </Main>
         </Box>

@@ -41,35 +41,35 @@ const Landing = () => {
                 <HeaderSection />
             </Box>
 
-            {/* 2. card section */}
+            {/* 2. card section
             <Box sx={{ py: 12.5, bgcolor: theme.palette.mode === ThemeMode.DARK ? 'dark.dark' : 'background.default' }}>
                 <CardSection />
-            </Box>
+            </Box> */}
 
             {/* 4. Developer Experience section */}
-            <Box sx={{ py: 12.5, bgcolor: theme.palette.mode === ThemeMode.DARK ? 'background.default' : 'grey.100' }}>
+            {/* <Box sx={{ py: 12.5, bgcolor: theme.palette.mode === ThemeMode.DARK ? 'background.default' : 'grey.100' }}>
                 <CustomizeSection />
-            </Box>
+            </Box> */}
 
             {/* 3. about section */}
-            <Box sx={{ py: 12.5, bgcolor: theme.palette.mode === ThemeMode.DARK ? 'dark.dark' : 'background.default' }}>
+            {/* <Box sx={{ py: 12.5, bgcolor: theme.palette.mode === ThemeMode.DARK ? 'dark.dark' : 'background.default' }}>
                 <FeatureSection />
-            </Box>
+            </Box> */}
 
             {/* 4. Apps */}
-            <Box sx={{ py: 12.5, bgcolor: theme.palette.mode === ThemeMode.DARK ? 'background.default' : 'grey.100' }}>
+            {/* <Box sx={{ py: 12.5, bgcolor: theme.palette.mode === ThemeMode.DARK ? 'background.default' : 'grey.100' }}>
                 <PreBuildDashBoard />
-            </Box>
+            </Box> */}
 
             {/* 5. people section */}
-            <Box sx={{ py: 12.5, bgcolor: theme.palette.mode === ThemeMode.DARK ? 'dark.dark' : 'background.default' }}>
+            {/* <Box sx={{ py: 12.5, bgcolor: theme.palette.mode === ThemeMode.DARK ? 'dark.dark' : 'background.default' }}>
                 <PeopleSection />
-            </Box>
+            </Box> */}
 
             {/* 6. startup section */}
-            <Box sx={{ py: 0 }}>
+            {/* <Box sx={{ py: 0 }}>
                 <StartupProjectSection />
-            </Box>
+            </Box> */}
 
             {/* multi-language section */}
 
@@ -78,9 +78,9 @@ const Landing = () => {
             </Box> */}
 
             {/* framework section */}
-            <Box sx={{ py: 12.5, bgcolor: theme.palette.mode === ThemeMode.DARK ? 'dark.dark' : 'background.default' }}>
+            {/* <Box sx={{ py: 12.5, bgcolor: theme.palette.mode === ThemeMode.DARK ? 'dark.dark' : 'background.default' }}>
                 <FrameworkSection />
-            </Box>
+            </Box> */}
 
             {/* 7. inculde section */}
             {/* <Box sx={{ py: 12.5, bgcolor: theme.palette.mode === ThemeMode.DARK ? 'dark.dark' : 'background.default' }}>
@@ -88,9 +88,9 @@ const Landing = () => {
             </Box>
             */}
             {/* footer section */}
-            <Box sx={{ py: 12.5, bgcolor: theme.palette.mode === ThemeMode.DARK ? 'background.default' : 'dark.900', pb: 0 }}>
+            {/* <Box sx={{ py: 12.5, bgcolor: theme.palette.mode === ThemeMode.DARK ? 'background.default' : 'dark.900', pb: 0 }}>
                 <FooterSection />
-            </Box>
+            </Box> */}
             <Customization />
         </>
     );

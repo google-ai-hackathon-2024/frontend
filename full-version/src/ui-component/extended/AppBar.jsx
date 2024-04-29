@@ -71,82 +71,13 @@ const AppBar = ({ ...others }) => {
                         <Typography sx={{ flexGrow: 1, textAlign: 'left' }}>
                             <Logo />
                         </Typography>
-                        <Stack direction="row" sx={{ display: { xs: 'none', sm: 'block' } }} spacing={{ xs: 1.5, md: 2.5 }}>
-                            <Button color="inherit" component={Link} href="#">
-                                Home
-                            </Button>
-                            <Button color="inherit" component={RouterLink} to="/login" target="_blank">
-                                Dashboard
-                            </Button>
-                            <Button color="inherit" component={Link} href="https://codedthemes.gitbook.io/berry" target="_blank">
-                                Documentation
-                            </Button>
-                            <Button
-                                component={Link}
-                                href="https://links.codedthemes.com/hsqll"
-                                disableElevation
-                                variant="contained"
-                                color="secondary"
-                            >
-                                Purchase Now
-                            </Button>
-                        </Stack>
+                        
                         <Box sx={{ display: { xs: 'block', sm: 'none' } }}>
                             <IconButton color="inherit" onClick={drawerToggler(true)} size="large">
                                 <MenuIcon />
                             </IconButton>
                             <Drawer anchor="top" open={drawerToggle} onClose={drawerToggler(false)}>
-                                {drawerToggle && (
-                                    <Box
-                                        sx={{ width: 'auto' }}
-                                        role="presentation"
-                                        onClick={drawerToggler(false)}
-                                        onKeyDown={drawerToggler(false)}
-                                    >
-                                        <List>
-                                            <Link sx={{ textDecoration: 'none' }} href="#" target="_blank">
-                                                <ListItemButton component="a">
-                                                    <ListItemIcon>
-                                                        <IconHome2 />
-                                                    </ListItemIcon>
-                                                    <ListItemText primary="Home" />
-                                                </ListItemButton>
-                                            </Link>
-                                            <Link sx={{ textDecoration: 'none' }} href="/login" target="_blank">
-                                                <ListItemButton component="a">
-                                                    <ListItemIcon>
-                                                        <IconDashboard />
-                                                    </ListItemIcon>
-                                                    <ListItemText primary="Dashboard" />
-                                                </ListItemButton>
-                                            </Link>
-                                            <Link
-                                                sx={{ textDecoration: 'none' }}
-                                                href="https://codedthemes.gitbook.io/berry"
-                                                target="_blank"
-                                            >
-                                                <ListItemButton component="a">
-                                                    <ListItemIcon>
-                                                        <IconBook />
-                                                    </ListItemIcon>
-                                                    <ListItemText primary="Documentation" />
-                                                </ListItemButton>
-                                            </Link>
-                                            <Link
-                                                sx={{ textDecoration: 'none' }}
-                                                href="https://links.codedthemes.com/hsqll"
-                                                target="_blank"
-                                            >
-                                                <ListItemButton component="a">
-                                                    <ListItemIcon>
-                                                        <IconCreditCard />
-                                                    </ListItemIcon>
-                                                    <ListItemText primary="Purchase Now" />
-                                                </ListItemButton>
-                                            </Link>
-                                        </List>
-                                    </Box>
-                                )}
+                                
                             </Drawer>
                         </Box>
                     </Toolbar>

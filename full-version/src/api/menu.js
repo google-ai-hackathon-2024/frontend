@@ -15,24 +15,24 @@ export const endpoints = {
 };
 
 export function useGetMenu() {
-    const { data, isLoading, error, isValidating } = useSWR(endpoints.key + endpoints.widget, fetcher, {
-        revalidateIfStale: false,
-        revalidateOnFocus: false,
-        revalidateOnReconnect: false
-    });
+    // const { data, isLoading, error, isValidating } = useSWR(endpoints.key + endpoints.widget, fetcher, {
+    //     revalidateIfStale: false,
+    //     revalidateOnFocus: false,
+    //     revalidateOnReconnect: false
+    // });
 
-    const memoizedValue = useMemo(
-        () => ({
-            menu: data?.widget,
-            menuLoading: isLoading,
-            menuError: error,
-            menuValidating: isValidating,
-            menuEmpty: !isLoading && !data?.length
-        }),
-        [data, error, isLoading, isValidating]
-    );
+    // const memoizedValue = useMemo(
+    //     () => ({
+    //         menu: data?.widget,
+    //         menuLoading: isLoading,
+    //         menuError: error,
+    //         menuValidating: isValidating,
+    //         menuEmpty: !isLoading && !data?.length
+    //     }),
+    //     [data, error, isLoading, isValidating]
+    // );
 
-    return memoizedValue;
+    return 0;
 }
 
 export function useGetMenuMaster() {

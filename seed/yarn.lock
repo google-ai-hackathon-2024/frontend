@@ -3369,6 +3369,7 @@ __metadata:
     react-router-dom: "npm:^6.22.1"
     react-slick: "npm:^0.30.2"
     react-timer-hook: "npm:^3.0.7"
+    react-voice-recorder: "npm:^2.1.2"
     react18-input-otp: "npm:^1.1.4"
     redux: "npm:^5.0.1"
     redux-persist: "npm:^6.0.0"
@@ -6435,6 +6436,15 @@ __metadata:
     react: ">=16.6.0"
     react-dom: ">=16.6.0"
   checksum: 10c0/2ba754ba748faefa15f87c96dfa700d5525054a0141de8c75763aae6734af0740e77e11261a1e8f4ffc08fd9ab78510122e05c21c2d79066c38bb6861a886c82
+  languageName: node
+  linkType: hard
+
+"react-voice-recorder@npm:^2.1.2":
+  version: 2.1.2
+  resolution: "react-voice-recorder@npm:2.1.2"
+  peerDependencies:
+    react: ^16.0.0
+  checksum: 10c0/57a0ae6852b13c5448be928840683cd36899abd0b6b07409d361b6d5f16b1ccedd5a1d28f129ab9e6c64d132af26b21070cf376e0c4f2ce5544024ab330e18d7
   languageName: node
   linkType: hard
 

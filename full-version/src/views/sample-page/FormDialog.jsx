@@ -40,6 +40,7 @@ export default function FormDialog({ open, onClose, onSubmit, participants }) {
                         value={participantCount}
                         onChange={(e) => setParticipantCount(e.target.value)}
                         fullWidth
+                        required
                     />
                 </Stack>
             </DialogContent>

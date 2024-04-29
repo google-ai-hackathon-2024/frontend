@@ -57,7 +57,7 @@ const MainLayout = () => {
             </AppBar>
 
             {/* menu / drawer */}
-            {menu}
+            {/* {menu} */}
 
             {/* main content */}
             <MainContentStyled {...{ borderRadius, menuOrientation, open: drawerOpen, theme }}>

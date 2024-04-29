@@ -3,10 +3,19 @@ import axios from 'axios';
 
 const API_URL = 'http://localhost:5555';
 
+
+
 // Upload audio file to GCP bucket
-export const uploadAudio = async (audioFilePath) => {
+export const uploadAudio = async (audioFile) => {
     try {
-        const response = await axios.post(`${API_URL}/audio`, { filepath: audioFilePath });
+        // const formData = new FormData();
+        // formData.append('audio', audioFile); // 'audio' must match the key expected by the Flask endpoint
+
+        const response = await axios.post(`${API_URL}/audio`, audioFile, {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+            },
+        });
         return response.data; // Return conversation ID and other data
     } catch (error) {
         console.error('Error uploading audio:', error);
@@ -15,12 +24,9 @@ export const uploadAudio = async (audioFilePath) => {
 };
 
 // Set configuration for generating transcript
-export const setConfig = async (convID, speakerCount) => {
+export const setConfig = async (dataToSend) => {
     try {
-        const response = await axios.post(`${API_URL}/config`, {
-            convID,
-            speakerCnt: speakerCount,
-        });
+        const response = await axios.post(`${API_URL}/config`, dataToSend);
         return response.data;
     } catch (error) {
         console.error('Error setting configuration:', error);

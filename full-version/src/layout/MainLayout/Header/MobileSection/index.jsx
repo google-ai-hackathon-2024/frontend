@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 
 // material-ui
-import AppBar from '@mui/material/AppBar';
+// import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
 import ClickAwayListener from '@mui/material/ClickAwayListener';
@@ -80,7 +80,7 @@ const MobileSection = () => {
                 {({ TransitionProps }) => (
                     <ClickAwayListener onClickAway={handleClose}>
                         <Transitions type="zoom" in={open} {...TransitionProps} sx={{ transformOrigin: 'top right' }}>
-                            <Paper>
+                            {/* <Paper>
                                 {open && (
                                     <AppBar color="inherit">
                                         <Toolbar sx={{ py: 2.75 }}>
@@ -88,7 +88,7 @@ const MobileSection = () => {
                                         </Toolbar>
                                     </AppBar>
                                 )}
-                            </Paper>
+                            </Paper> */}
                         </Transitions>
                     </ClickAwayListener>
                 )}

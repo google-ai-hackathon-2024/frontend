@@ -1,22 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { TextField, Button, FormControl, InputLabel, Select, MenuItem, Grid, Typography } from '@mui/material';
 import MainCard from 'ui-component/cards/MainCard';
 import AnimateButton from 'ui-component/extended/AnimateButton';
+import { CircularProgress } from '@mui/material';
 
 function SampleForm({ form, audioSamples, handleFormChange, handleSubmit }) {
-    // Custom validation function
-    // const handleValidationAndSubmit = (event) => {
-    //     event.preventDefault(); // Prevent form from submitting without validation
-
-    //     // Check required fields
-    //     if (!form.conversationType || !form.conversationTitle || audioSamples.some((_, index) => !form[`speakerLabel${index}`])) {
-    //         alert("Please fill all required fields."); // Basic alert, can be replaced with a more sophisticated message
-    //         return;
-    //     }
-
-    //     // Proceed with submitting if validation passes
-    //     handleSubmit();
-    // };
 
     return (
         <MainCard title="Conversation Form">
@@ -33,10 +21,10 @@ function SampleForm({ form, audioSamples, handleFormChange, handleSubmit }) {
                                 onChange={handleFormChange}
                                 required
                             >
-                                <MenuItem value="1">Business Meeting</MenuItem>
-                                <MenuItem value="2">Debate</MenuItem>
-                                <MenuItem value="3">Interview</MenuItem>
-                                <MenuItem value="4">Monologue</MenuItem>
+                                <MenuItem value="0">Business Meeting</MenuItem>
+                                <MenuItem value="1">Debate</MenuItem>
+                                <MenuItem value="2">Interview</MenuItem>
+                                <MenuItem value="3">Monologue</MenuItem>
                             </Select>
                         </FormControl>
                     </Grid>
@@ -74,7 +62,7 @@ function SampleForm({ form, audioSamples, handleFormChange, handleSubmit }) {
                     <Grid item xs={12}>
                         <AnimateButton>
                             <Button type="submit" variant="contained" color="primary" fullWidth>
-                                Submit
+                           Submit
                             </Button>
                         </AnimateButton>
                     </Grid>
