@@ -1,6 +1,6 @@
 {
     "name": "MinuteTakerAI",
-    "version": "3.9.0",
+    "version": "1.0.0",
     "private": true,
     "dependencies": {
         "@auth0/auth0-spa-js": "^2.1.3",
