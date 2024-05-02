@@ -28,7 +28,13 @@ export default function FormDialog({ open, onClose, onSubmit, participants }) {
                 <Stack spacing={3}>
                     <DialogContentText>
                         <Typography variant="body2" component="span">
-                            Please enter the total number of participants:
+                            Please enter the total number of participants:<br /> <br />
+                        </Typography>
+                        <Typography variant="body2" component="span" sx={{ fontWeight: "bold" }}>
+                            Note: <br />
+                        </Typography>
+                        <Typography variant="body2" component="span">
+                            Be sure that your recording has speech with an enough length (over 30 sec).<br />If not, click 'Cancel' to go back!<br /><br />
                         </Typography>
                     </DialogContentText>
                     <TextField

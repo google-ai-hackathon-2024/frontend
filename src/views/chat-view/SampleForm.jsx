@@ -42,7 +42,7 @@ function SampleForm({ form, audioSamples, handleFormChange, handleSubmit }) {
                     {audioSamples.map((sample, index) => (
                         <Grid item xs={12} key={index}>
                             <Typography variant="subtitle1" gutterBottom>
-                                Speaker Audio {index + 1}
+                                Speaker {index + 1} - Audio Sample
                             </Typography>
                             <audio controls style={{ width: '100%' }}>
                                 <source src={sample} type="audio/wav" />
@@ -52,7 +52,7 @@ function SampleForm({ form, audioSamples, handleFormChange, handleSubmit }) {
                                 fullWidth
                                 margin="normal"
                                 name={`speakerLabel${index}`}
-                                label={`Speaker Name ${index + 1}`}
+                                label={`Speaker ${index + 1} : Enter the name of the speaker that you hear mostly in the sample.`}
                                 value={form[`speakerLabel${index}`]}
                                 onChange={handleFormChange}
                                 required
