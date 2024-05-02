@@ -128,7 +128,7 @@ const ChatDisplay = () => {
             const downloadUrl = window.URL.createObjectURL(blob);
             const link = document.createElement('a');
             link.href = downloadUrl;
-            link.download = 'conversation-summary.txt'; // You can customize the download file name
+            link.download = 'conversation-result.txt'; // You can customize the download file name
             document.body.appendChild(link);
             link.click();
     
