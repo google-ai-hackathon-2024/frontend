@@ -80,7 +80,7 @@ const ChatDisplay = ({ convID: propConvID }) => {
     const loadSummary = async () => {
         try {
             const convID1 = convID;
-            const url = `http://localhost:5555/summary?convID=${convID1}`;
+            const url = `http://localhost:5000/summary?convID=${convID1}`;
             const response = await fetch(url);
             const summaryText = await response.text();  // Retrieve Markdown text from the .txt file
             setData(prevData => [...prevData, { text: summaryText, sender: 'server', markdown: true }]);
@@ -92,7 +92,7 @@ const ChatDisplay = ({ convID: propConvID }) => {
     const loadTranscript = async () => {
         try {
             const convID1 = convID;
-            const url = `http://localhost:5555/transcript?convID=${convID1}`;
+            const url = `http://localhost:5000/transcript?convID=${convID1}`;
             const response = await fetch(url);
             const transcriptText = await response.text();  // Retrieve Markdown text from the .txt file
             setData(prevData => [...prevData, { text: transcriptText, sender: 'server', markdown: true }]);
@@ -170,13 +170,13 @@ const ChatDisplay = ({ convID: propConvID }) => {
                             <Stack spacing={2}>
                                 <Stack direction="row" spacing={1} alignItems="center">
                                     <Button variant="outlined" onClick={loadSummary}>Summarize</Button>
-                                    <IconButton color="inherit" onClick={() => handleDownload(`http://localhost:5555/summary?convID=${convID}`)}>
+                                    <IconButton color="inherit" onClick={() => handleDownload(`http://localhost:5000/summary?convID=${convID}`)}>
                                         <FileDownloadIcon />
                                     </IconButton>
                                 
                                     
                                     <Button variant="outlined" onClick={loadTranscript}>Transcript</Button>
-                                    <IconButton color="inherit" onClick={() => handleDownload(`http://localhost:5555/transcript?convID=${convID}`)}>
+                                    <IconButton color="inherit" onClick={() => handleDownload(`http://localhost:5000/transcript?convID=${convID}`)}>
                                         <FileDownloadIcon />
                                     </IconButton>
                                     
