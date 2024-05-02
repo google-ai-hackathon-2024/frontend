@@ -23,7 +23,8 @@ import useConfig from 'hooks/useConfig';
 // assets
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 
-import dashboard from 'assets/images/landing/hero-dashboard.png';
+// import dashboard from 'assets/images/landing/hero-dashboard.png';
+import dashboard from 'assets/images/landing/landing-page.png';
 import widget1 from 'assets/images/landing/hero-widget-1.png';
 import widget2 from 'assets/images/landing/hero-widget-2.png';
 import BgDark from 'assets/images/landing/bg-hero-block-dark.png';
@@ -36,7 +37,7 @@ const HeaderImage = styled('img')(({ theme }) => ({
     transform: 'scale(1.7)',
     transformOrigin: theme.direction === 'rtl' ? '100% 50%' : '0 50%',
     [theme.breakpoints.down('xl')]: {
-        transform: 'scale(1.5)'
+        transform: 'scale(1)'
     },
     [theme.breakpoints.down('lg')]: {
         transform: 'scale(1.2)'
@@ -136,7 +137,7 @@ const HeaderSection = () => {
                                                 color="secondary"
                                                 startIcon={<PlayArrowIcon />}
                                             >
-                                                Try MinuteTaker
+                                                Try MinuteTakerAI
                                             </Button>
                                         </AnimateButton>
                                     </Grid>
